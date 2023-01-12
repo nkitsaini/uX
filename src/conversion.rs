@@ -4,6 +4,16 @@ use crate::*;
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct TryFromIntError(pub(crate) ());
 
+impl std::fmt::Display for TryFromIntError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
+        // panic!();
+        f.write_str("Conversion Between Types Failed")
+    }
+}
+
+#[cfg(feature="std")]
+impl std::error::Error for TryFromIntError { }
+
 impl From<lib::core::num::TryFromIntError> for TryFromIntError {
     fn from(_: lib::core::num::TryFromIntError) -> TryFromIntError {
         TryFromIntError(())
